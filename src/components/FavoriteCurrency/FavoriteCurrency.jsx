@@ -9,7 +9,7 @@ export function FavoriteCurrency() {
 
   return (
     <div className={style.container}>
-      <p className={style.text}> Избранная валюта : </p>
+      <p className={style.text}> Базовая валюта : </p>
       <Select
           // value={age}
           // onChange={handleChange}

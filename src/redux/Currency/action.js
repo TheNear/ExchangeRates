@@ -12,3 +12,4 @@ export const getCurrencyList = () => (dispatch) => {
       setCurrencyList(Object.values(item.Valute))
     ));
 }
+
