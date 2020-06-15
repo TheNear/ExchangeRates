@@ -43,7 +43,9 @@ export function CurrencyList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {currency.map((currencyRow) => (
+          {currency.slice().sort((a, b) => {
+            if (favorites.includes(a.ID)) return -1;
+          }).map((currencyRow) => (
             <TableRow key={currencyRow.NumCode}>
               <TableCell align="left">{currencyRow.Nominal}</TableCell>
               <TableCell align="left">{currencyRow.CharCode}</TableCell>
