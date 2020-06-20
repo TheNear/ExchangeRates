@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,25 +10,12 @@ import Paper from '@material-ui/core/Paper';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import { changeFavoriteCurrency } from '../../redux/favoriteCurrency/action';
 
 export function CurrencyList() {
-  const currency = useSelector(store => store.currencyReducer)
-
-  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || [])
-
-  const toggleFavorite = (id) => {
-    const index = favorites.indexOf(id);
-    if (index >= 0) {
-      setFavorites((state) => state.filter((item) => item !== id));
-    } else {
-      setFavorites((state) => state.concat(id));
-    }
-  }
-
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites))
-  }, [favorites])
-
+  const dispatch = useDispatch();
+  const currency = useSelector((store) => store.currencyReducer);
+  const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer);
 
   return (
     <TableContainer component={Paper}>
@@ -43,8 +30,8 @@ export function CurrencyList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {currency.slice().sort((a, b) => {
-            if (favorites.includes(a.ID)) return -1;
+          {currency.filter(currency => currency.CharCode !== favoriteCurrency.currency).sort((a, b) => {
+            return favoriteCurrency.list.includes(a.ID) ? -1 : 1;
           }).map((currencyRow) => (
             <TableRow key={currencyRow.NumCode}>
               <TableCell align="left">{currencyRow.Nominal}</TableCell>
@@ -55,8 +42,8 @@ export function CurrencyList() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                        onChange={() => toggleFavorite(currencyRow.ID)}
-                        checked={favorites.includes(currencyRow.ID)}
+                        onChange={() => dispatch(changeFavoriteCurrency(currencyRow.ID))}
+                        checked={favoriteCurrency.list.includes(currencyRow.ID)}
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite />}
                         name={currencyRow.CharCode}
