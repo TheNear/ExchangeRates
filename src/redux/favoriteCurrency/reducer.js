@@ -7,8 +7,8 @@ const initialState = {
     "CharCode": "RUB",
     "Nominal": 1,
     "Name": "Российский рубль",
-    "Value": 1.0,
-    "Previous": 1.0
+    "Value": 1.00,
+    "Previous": 1.00
   },
   list: JSON.parse(localStorage.getItem('favorites')) || [],
 };

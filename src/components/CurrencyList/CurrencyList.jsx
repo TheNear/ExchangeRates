@@ -12,32 +12,52 @@ import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { changeFavoriteCurrency } from '../../redux/favoriteCurrency/action';
 
+
 export function CurrencyList() {
   const dispatch = useDispatch();
   const currency = useSelector((store) => store.currencyReducer);
   const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer);
+
+  const calculateCurrency = (currency) => {
+    let multiply = 1;
+    const curValue = ((currency.Value / favoriteCurrency.currency.Value) * currency.Nominal / favoriteCurrency.currency.Nominal);
+    const curPrev = ((currency.Previous / favoriteCurrency.currency.Previous) * currency.Nominal / favoriteCurrency.currency.Nominal);
+    while ((curValue * multiply) < 1) {
+      multiply *= 10;
+    }
+    return {
+      ...currency,
+      Nominal: 1 * multiply,
+      Value: curValue * multiply,
+      Previous: curPrev * multiply,
+    }
+  }
+  
 
   return (
     <TableContainer component={Paper}>
       <Table stickyHeader aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="left">Единиц</TableCell>
+            <TableCell align="left">За</TableCell>
             <TableCell align="left">Букв. код</TableCell>
             <TableCell align="left">Валюта</TableCell>
-            <TableCell align="left">Курс</TableCell>
+            <TableCell align="left">Получаешь</TableCell>
             <TableCell align="left">Избранная</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {currency.filter(currency => currency.CharCode !== favoriteCurrency.currency.CharCode).sort((a, b) => {
+          {currency
+            .filter(currency => currency.CharCode !== favoriteCurrency.currency.CharCode)
+            .sort((a, b) => {
             return favoriteCurrency.list.includes(a.ID) ? -1 : 1;
-          }).map((currencyRow) => (
+          }).map(calculateCurrency)
+            .map((currencyRow) => (
             <TableRow key={currencyRow.NumCode}>
               <TableCell align="left">{currencyRow.Nominal}</TableCell>
               <TableCell align="left">{currencyRow.CharCode}</TableCell>
               <TableCell align="left">{currencyRow.Name}</TableCell>
-              <TableCell align="left">{currencyRow.Value.toFixed(1)} ({(currencyRow.Previous - currencyRow.Value).toFixed(1)})</TableCell>
+              <TableCell align="left">{currencyRow.Value.toFixed(2)} {favoriteCurrency.currency.CharCode} ({(currencyRow.Previous - currencyRow.Value).toFixed(2)})</TableCell>
               <TableCell align="center">
                 <FormControlLabel
                   control={
