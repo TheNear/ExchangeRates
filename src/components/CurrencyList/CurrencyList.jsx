@@ -11,6 +11,7 @@ import { FormControlLabel, Checkbox } from '@material-ui/core';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { changeFavoriteCurrency } from '../../redux/favoriteCurrency/action';
+import { CurrencyValue } from '../../componentsHelper/CurrencyValue/CurrencyValue';
 
 
 export function CurrencyList() {
@@ -20,8 +21,8 @@ export function CurrencyList() {
 
   const calculateCurrency = (currency) => {
     let multiply = 1;
-    const curValue = ((currency.Value / favoriteCurrency.currency.Value) * currency.Nominal / favoriteCurrency.currency.Nominal);
-    const curPrev = ((currency.Previous / favoriteCurrency.currency.Previous) * currency.Nominal / favoriteCurrency.currency.Nominal);
+    const curValue = ((currency.Value / favoriteCurrency.currency.Value) / currency.Nominal * favoriteCurrency.currency.Nominal);
+    const curPrev = ((currency.Previous / favoriteCurrency.currency.Previous) / currency.Nominal * favoriteCurrency.currency.Nominal);
     while ((curValue * multiply) < 1) {
       multiply *= 10;
     }
@@ -57,7 +58,9 @@ export function CurrencyList() {
               <TableCell align="left">{currencyRow.Nominal}</TableCell>
               <TableCell align="left">{currencyRow.CharCode}</TableCell>
               <TableCell align="left">{currencyRow.Name}</TableCell>
-              <TableCell align="left">{currencyRow.Value.toFixed(2)} {favoriteCurrency.currency.CharCode} ({(currencyRow.Previous - currencyRow.Value).toFixed(2)})</TableCell>
+              <TableCell align="left">
+                <CurrencyValue prev={currencyRow.Previous} value={currencyRow.Value} code={favoriteCurrency.currency.CharCode}/>
+              </TableCell>
               <TableCell align="center">
                 <FormControlLabel
                   control={
