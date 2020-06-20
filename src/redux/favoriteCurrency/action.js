@@ -1,8 +1,8 @@
 import { SET_FAVORITE, CHANGE_FAVORITE_LIST } from './types.js';
 
 export const setFavoriteCurrency = (currency) => {
-  localStorage.setItem('favoritesCur', currency);
-
+  localStorage.setItem('favoritesCur', JSON.stringify(currency));
+  
   return {
     type: SET_FAVORITE,
     payload: currency,

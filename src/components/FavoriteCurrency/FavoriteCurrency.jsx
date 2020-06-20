@@ -12,15 +12,20 @@ export function FavoriteCurrency() {
   const currency = useSelector(store => store.currencyReducer)
   const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer);
   
-
+  const setFavoriteHandler = (evt) => {
+    const favorite = currency.filter(item => (
+      item.CharCode === evt.target.value
+    ))
+    dispatch(setFavoriteCurrency(...favorite));
+  }
 
   return (
     <div className={style.container}>
       <p className={style.text}> Базовая валюта : </p>
       <FormControl >
         <Select
-            value={currency.length > 1 ? favoriteCurrency.currency : ''}
-            onChange={(evt) => dispatch(setFavoriteCurrency(evt.target.value))}
+            value={currency.length > 1 ? favoriteCurrency.currency.CharCode : ''}
+            onChange={(evt) => setFavoriteHandler(evt)}
             displayEmpty
             // className={}
             inputProps={{ 'aria-label': 'Without label' }}

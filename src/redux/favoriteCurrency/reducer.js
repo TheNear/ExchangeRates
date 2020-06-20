@@ -1,7 +1,15 @@
 import { SET_FAVORITE, CHANGE_FAVORITE_LIST } from './types.js';
 
 const initialState = {
-  currency: localStorage.getItem('favoritesCur') || 'RUB',
+  currency: JSON.parse(localStorage.getItem('favoritesCur')) || {
+    "ID": "R01",
+    "NumCode": "643",
+    "CharCode": "RUB",
+    "Nominal": 1,
+    "Name": "Российский рубль",
+    "Value": 1.0,
+    "Previous": 1.0
+  },
   list: JSON.parse(localStorage.getItem('favorites')) || [],
 };
 
