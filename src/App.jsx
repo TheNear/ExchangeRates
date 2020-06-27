@@ -3,10 +3,9 @@ import { CurrencyConvertorPage } from './pages/CurrencyConvertorPage/CurrencyCon
 import { StylesProvider } from '@material-ui/core/styles';
 import { useDispatch } from "react-redux";
 import { getCurrencyList } from './redux/currency/action.js';
-import { Container } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { Switch, NavLink, Route } from "react-router-dom";
+import { Switch, NavLink, Route, useLocation } from "react-router-dom";
 import styles from "./App.module.css";
 import { ExchangeRatePage } from './pages/ExchangeRatePage/ExchangeRatePage';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
@@ -23,6 +22,8 @@ const links = [
 ]
 
 function App() {
+  const location = useLocation();
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,10 +33,11 @@ function App() {
 
   return (
     <StylesProvider injectFirst>
-      <Container className={styles.container} maxWidth="md">
+      <div className={styles.container}>
         <ButtonGroup className={styles.buttons} size="large" color="primary" aria-label="large outlined primary button group">
           {links.map((button, index) => (
             <Button
+              variant={button.path === location.pathname ? "contained" : ""}
               className={styles.button}
               key={index}
               component={NavLink}
@@ -57,8 +59,7 @@ function App() {
             <ErrorPage />
           </Route>
         </Switch>
-
-      </Container>
+      </div>
     </StylesProvider>
   );
 }
