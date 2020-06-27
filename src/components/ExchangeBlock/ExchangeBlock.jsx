@@ -3,10 +3,10 @@ import styles from './ExchangeBlock.module.css'
 import { ExchangeInput } from '../ExchangeInput/ExchangeInput';
 import { ExchangeSelectCurrency } from '../ExchangeSelectCurrency/ExchangeSelectCurrency';
 
-export function ExchangeBlock({ inputValue, inputValueHandler, readOnly, name }) {
+export function ExchangeBlock({ inputValue, inputValueHandler, readOnly, name, activeCur}) {
   return (
     <div className={styles.container}>
-      <ExchangeSelectCurrency />
+      <ExchangeSelectCurrency activeCur={activeCur} />
 
       <ExchangeInput
         name={name}

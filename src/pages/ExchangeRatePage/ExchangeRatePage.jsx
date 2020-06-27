@@ -28,10 +28,12 @@ export function ExchangeRatePage() {
         inputValue={fromValue}
         inputValueHandler={changeFromValue}
         name="Отдаешь"
+        activeCur={exchangesCurrencies.mainCurrency}
       />
       <ExchangeBlock
         inputValue={toValue}
         readOnly={true}
+        activeCur={exchangesCurrencies.secondCurrency}
         name="Получаешь"
       />
 
