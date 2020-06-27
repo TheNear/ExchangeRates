@@ -16,7 +16,7 @@ import { CurrencyValue } from '../../componentsHelper/CurrencyValue/CurrencyValu
 
 export function CurrencyList() {
   const dispatch = useDispatch();
-  const currency = useSelector((store) => store.currencyReducer);
+  const currencyList = useSelector((store) => store.currencyReducer);
   const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer);
 
   const calculateCurrency = (currency) => {
@@ -48,7 +48,7 @@ export function CurrencyList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {currency
+          {currencyList
             .filter(currency => currency.CharCode !== favoriteCurrency.currency.CharCode)
             .sort((a) => {
             return favoriteCurrency.list.includes(a.ID) ? -1 : 1;

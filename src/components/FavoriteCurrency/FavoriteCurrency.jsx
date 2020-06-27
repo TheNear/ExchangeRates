@@ -5,6 +5,7 @@ import style from './FavoriteCurrency.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormControl } from '@material-ui/core';
 import { setFavoriteCurrency } from '../../redux/favoriteCurrency/action';
+import { changeBothCurrency } from '../../redux/exchangeCurrency/actions';
 
 
 export function FavoriteCurrency() {
@@ -17,6 +18,7 @@ export function FavoriteCurrency() {
       item.CharCode === evt.target.value
     ))
     dispatch(setFavoriteCurrency(...favorite));
+    dispatch(changeBothCurrency(...favorite));
   }
 
   return (

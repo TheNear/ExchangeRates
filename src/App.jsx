@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { CurrencyConvertorPage } from './pages/CurrencyConvertorPage/CurrencyConvertorPage';
 import { StylesProvider } from '@material-ui/core/styles';
 import { useDispatch } from "react-redux";
-import { getCurrencyList } from './redux/Currency/action.js';
+import { getCurrencyList } from './redux/currency/action.js';
 import { Container } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
