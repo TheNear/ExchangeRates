@@ -1,0 +1,14 @@
+.container {
+  width: 45%;
+  height: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.button {
+  flex: 1;
+}

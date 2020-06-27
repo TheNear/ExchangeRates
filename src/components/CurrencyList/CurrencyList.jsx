@@ -50,7 +50,7 @@ export function CurrencyList() {
         <TableBody>
           {currency
             .filter(currency => currency.CharCode !== favoriteCurrency.currency.CharCode)
-            .sort((a, b) => {
+            .sort((a) => {
             return favoriteCurrency.list.includes(a.ID) ? -1 : 1;
           }).map(calculateCurrency)
             .map((currencyRow) => (

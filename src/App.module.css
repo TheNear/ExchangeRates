@@ -11,3 +11,7 @@
 .buttons {
   margin-bottom: 30px;
 }
+
+.button {
+  min-width: 250px;
+}

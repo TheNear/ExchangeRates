@@ -36,6 +36,7 @@ function App() {
         <ButtonGroup className={styles.buttons} size="large" color="primary" aria-label="large outlined primary button group">
           {links.map((button, index) => (
             <Button
+              className={styles.button}
               key={index}
               component={NavLink}
               to={button.path}
