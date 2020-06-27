@@ -3,8 +3,8 @@ import styles from './ExchangeRatePage.module.css';
 import { ExchangeBlock } from '../../components/ExchangeBlock/ExchangeBlock';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeMainCurrency } from '../../redux/exchangeCurrency/actions';
+import { useSelector } from 'react-redux';
+import { changeMainCurrency, changeSecondCurrency } from '../../redux/exchangeCurrency/actions';
 
 export function ExchangeRatePage() {
   const exchangesCurrencies = useSelector((store) => store.exchangeCurrencyReducer)
@@ -22,6 +22,9 @@ export function ExchangeRatePage() {
   }, [fromValue, exchangesCurrencies.mainCurrency.Value, exchangesCurrencies.secondCurrency.Value,
     exchangesCurrencies.mainCurrency.Nominal, exchangesCurrencies.secondCurrency.Nominal])
 
+  
+  
+
   return (
     <div className={styles.container}>
       <ExchangeBlock 
@@ -29,12 +32,14 @@ export function ExchangeRatePage() {
         inputValueHandler={changeFromValue}
         name="Отдаешь"
         activeCur={exchangesCurrencies.mainCurrency}
+        changeCur={changeMainCurrency}
       />
       <ExchangeBlock
         inputValue={toValue}
         readOnly={true}
         activeCur={exchangesCurrencies.secondCurrency}
         name="Получаешь"
+        changeCur={changeSecondCurrency}
       />
 
     </div>

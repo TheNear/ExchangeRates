@@ -2,16 +2,18 @@ import React, { useMemo } from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import styles from './ExchangeSelectCurrency.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-export function ExchangeSelectCurrency({ activeCur }) {
+export function ExchangeSelectCurrency({ activeCur, changeCur }) {
   const currencyList = useSelector((store) => store.currencyReducer);
-  const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer.list);
+  const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer);
+  const dispatch = useDispatch();
 
   const sorted = useMemo(() => currencyList.slice().sort((a, b) => {
-    if (a.ID === activeCur.ID) return -1;
-    if (favoriteCurrency.includes(a.ID) > favoriteCurrency.includes(b.ID)) return -1;
-  }),[currencyList])
+    if (a.ID === favoriteCurrency.currency.ID) return -1;
+    if (favoriteCurrency.list.includes(a.ID) > favoriteCurrency.list.includes(b.ID)) return -1;
+    return 1;
+  }),[currencyList, favoriteCurrency])
  
 
   return (
@@ -24,7 +26,11 @@ export function ExchangeSelectCurrency({ activeCur }) {
       {sorted.map((button, index) => {
         if (index < 4) {
           return (
-            <Button 
+            <Button
+              onClick={() => {
+                dispatch(changeCur(button))
+              }}
+              key={index}
               variant={button.ID === activeCur.ID ? "contained" : ""}
               className={styles.button}
             >
@@ -32,6 +38,7 @@ export function ExchangeSelectCurrency({ activeCur }) {
             </Button>
           )
         }
+        return null;
       })}
     </ButtonGroup>
   )
