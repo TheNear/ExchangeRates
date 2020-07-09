@@ -8,7 +8,7 @@ export function CurrencyValue({value, prev, code}) {
   return (
     <span>
       {`${value.toFixed(2)} ${code.toLowerCase()} `}
-      <span className={currencyDiff >= 0 ? styles.good : styles.bad}>
+      <span className={currencyDiff >= 0 ? styles.bad : styles.good}>
         ( {currencyDiff.toFixed(3)} )
       </span>
     </span>
