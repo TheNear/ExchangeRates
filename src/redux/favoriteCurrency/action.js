@@ -10,7 +10,7 @@ export const setFavoriteCurrency = (currency) => {
 }
 
 export const changeFavoriteCurrency = (id) => {
-  let favoriteList = JSON.parse(localStorage.getItem('favorites'));
+  let favoriteList = JSON.parse(localStorage.getItem('favorites')) || [];
   const index = favoriteList.indexOf(id);
   if (index >= 0) {
     favoriteList = favoriteList.filter((item) => item !== id);

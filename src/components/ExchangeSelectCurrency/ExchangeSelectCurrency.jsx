@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -79,7 +80,7 @@ export function ExchangeSelectCurrency({ activeCur, changeCur }) {
         ref={popupRef}
         onClick={handlePopupToggle}
       >
-        <ArrowDropDownIcon />
+        {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </Button>
     </ButtonGroup>
     <Popper 
