@@ -24,9 +24,11 @@ export function ExchangeSelectCurrency({ activeCur, changeCur }) {
 
   const sorted = useMemo(() => currencyList.slice().sort((a, b) => {
     if (a.ID === favoriteCurrency.currency.ID) return -1;
+    if (b.ID === favoriteCurrency.currency.ID) return 1;
     if (favoriteCurrency.list.includes(a.ID) > favoriteCurrency.list.includes(b.ID)) return -1;
     return 1;
   }),[currencyList, favoriteCurrency])
+
 
   const handlePopupToggle = () => {
     setOpen((prevOpen) => !prevOpen)
