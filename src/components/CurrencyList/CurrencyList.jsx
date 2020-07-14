@@ -13,7 +13,6 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { changeFavoriteCurrency } from '../../redux/favoriteCurrency/action';
 import { CurrencyValue } from '../../componentsHelper/CurrencyValue/CurrencyValue';
 
-
 export function CurrencyList() {
   const dispatch = useDispatch();
   const currencyList = useSelector((store) => store.currencyReducer);
@@ -21,8 +20,10 @@ export function CurrencyList() {
 
   const calculateCurrency = (currency) => {
     let multiply = 1;
-    const curValue = ((currency.Value / favoriteCurrency.currency.Value) / currency.Nominal * favoriteCurrency.currency.Nominal);
-    const curPrev = ((currency.Previous / favoriteCurrency.currency.Previous) / currency.Nominal * favoriteCurrency.currency.Nominal);
+    const curValue = (((currency.Value / favoriteCurrency.currency.Value) / currency.Nominal)
+                       * favoriteCurrency.currency.Nominal);
+    const curPrev = (((currency.Previous / favoriteCurrency.currency.Previous) / currency.Nominal)
+                       * favoriteCurrency.currency.Nominal);
     while ((curValue * multiply) < 1) {
       multiply *= 10;
     }
@@ -31,9 +32,8 @@ export function CurrencyList() {
       Nominal: 1 * multiply,
       Value: curValue * multiply,
       Previous: curPrev * multiply,
-    }
-  }
-  
+    };
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -49,17 +49,19 @@ export function CurrencyList() {
         </TableHead>
         <TableBody>
           {currencyList
-            .filter(currency => currency.CharCode !== favoriteCurrency.currency.CharCode)
-            .sort((a) => {
-            return favoriteCurrency.list.includes(a.ID) ? -1 : 1;
-          }).map(calculateCurrency)
+            .filter((currency) => currency.CharCode !== favoriteCurrency.currency.CharCode)
+            .sort((a) => (favoriteCurrency.list.includes(a.ID) ? -1 : 1)).map(calculateCurrency)
             .map((currencyRow) => (
             <TableRow key={currencyRow.NumCode}>
               <TableCell align="left">{currencyRow.Nominal}</TableCell>
               <TableCell align="left">{currencyRow.CharCode}</TableCell>
               <TableCell align="left">{currencyRow.Name}</TableCell>
               <TableCell align="left">
-                <CurrencyValue prev={currencyRow.Previous} value={currencyRow.Value} code={favoriteCurrency.currency.CharCode}/>
+                <CurrencyValue
+                 prev={currencyRow.Previous}
+                 value={currencyRow.Value}
+                 code={favoriteCurrency.currency.CharCode}
+                />
               </TableCell>
               <TableCell align="center">
                 <FormControlLabel
@@ -76,10 +78,9 @@ export function CurrencyList() {
                 />
              </TableCell>
             </TableRow>
-          ))}
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
-  )
-};
-
+  );
+}

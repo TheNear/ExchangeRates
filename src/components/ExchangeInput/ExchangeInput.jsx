@@ -1,20 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import styles from './ExchangeInput.module.css';
 
-export function ExchangeInput({ value, changeHandler, readOnly, name }) {
+export function ExchangeInput({
+  value, changeHandler, readOnly, name,
+}) {
   return (
     <>
       <TextField
         className={styles.input}
-        InputProps={{ 
+        InputProps={{
           style: { fontSize: 40 },
-          inputProps: { min : 0 },
-          readOnly: readOnly
+          inputProps: { min: 0 },
+          readOnly,
         }}
-        fullWidth={true}
+        fullWidth
         value={value}
-        onChange={(evt) => changeHandler(evt.target.value)}
+        onChange={(evt) => changeHandler(+evt.target.value)}
         id="outlined-number"
         label={name}
         type="number"
@@ -25,5 +28,17 @@ export function ExchangeInput({ value, changeHandler, readOnly, name }) {
       />
       Сюда потом допишу
     </>
-  )
+  );
 }
+
+ExchangeInput.propTypes = {
+  value: PropTypes.number.isRequired,
+  changeHandler: PropTypes.func,
+  readOnly: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+};
+
+ExchangeInput.defaultProps = {
+  changeHandler: () => {},
+  readOnly: false,
+};

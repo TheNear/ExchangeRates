@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './CurrencyValue.module.css';
 
-export function CurrencyValue({value, prev, code}) {
-
+export function CurrencyValue({ value, prev, code }) {
   const currencyDiff = value - prev;
 
   return (
@@ -12,6 +12,11 @@ export function CurrencyValue({value, prev, code}) {
         ( {currencyDiff.toFixed(3)} )
       </span>
     </span>
-  )
+  );
 }
 
+CurrencyValue.propTypes = {
+  value: PropTypes.number.isRequired,
+  prev: PropTypes.number.isRequired,
+  code: PropTypes.string.isRequired,
+};
