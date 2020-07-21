@@ -8,13 +8,11 @@ const NUMBER_REGEXP = /^[0-9]*[.]?[0-9]*$/;
 export function ExchangeInput({
   value, changeHandler, readOnly, name,
 }) {
-  
-  const changeInputValidation = (value) => {
-    if (NUMBER_REGEXP.test(value)) {
-      changeHandler(value);
+  const changeInputValidation = (inputValue) => {
+    if (NUMBER_REGEXP.test(inputValue)) {
+      changeHandler(inputValue);
     }
-  }
-
+  };
 
   return (
     <>
@@ -29,7 +27,6 @@ export function ExchangeInput({
         value={value}
         onChange={(evt) => changeInputValidation(evt.target.value)}
         label={name}
-        type="number"
         InputLabelProps={{
           shrink: true,
         }}
