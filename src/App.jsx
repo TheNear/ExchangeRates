@@ -6,7 +6,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {
   Switch, NavLink, Route, useLocation,
 } from 'react-router-dom';
-import { getCurrencyList } from './redux/currency/action';
+import { getCurrencyList } from './redux/Currency/action';
 import { CurrencyConvertorPage } from './pages/CurrencyConvertorPage/CurrencyConvertorPage';
 import styles from './App.module.css';
 import { ExchangeRatePage } from './pages/ExchangeRatePage/ExchangeRatePage';

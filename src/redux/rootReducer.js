@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { currencyReducer } from "./currency/reducer.js";
+import { currencyReducer } from "./Currency/reducer.js";
 import { favoriteCurrencyReducer } from "./favoriteCurrency/reducer.js";
 import { exchangeCurrencyReducer } from "./exchangeCurrency/reducer.js";
 

@@ -25,7 +25,7 @@ export function ExchangeBlock({
 }
 
 ExchangeBlock.propTypes = {
-  inputValue: PropTypes.number.isRequired,
+  inputValue: PropTypes.string.isRequired,
   inputValueHandler: PropTypes.func,
   readOnly: PropTypes.bool,
   name: PropTypes.string.isRequired,

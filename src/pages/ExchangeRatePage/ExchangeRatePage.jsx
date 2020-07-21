@@ -8,15 +8,15 @@ export function ExchangeRatePage() {
   const dispatch = useDispatch();
   const currency = useSelector((store) => store.exchangeCurrencyReducer);
   const favoriteCurrency = useSelector((store) => store.favoriteCurrencyReducer.currency);
-  const [fromValue, changeFromValue] = useState(0);
-  const [toValue, changeToValue] = useState(0);
+  const [fromValue, changeFromValue] = useState("0");
+  const [toValue, changeToValue] = useState("0");
 
   useEffect(() => {
     const rate = (((currency.mainCurrency.Value / currency.secondCurrency.Value)
                 / currency.mainCurrency.Nominal) * currency.secondCurrency.Nominal)
                 * fromValue;
 
-    changeToValue(+rate.toFixed(2));
+    changeToValue(rate.toFixed(2));
   }, [fromValue, currency.mainCurrency.Value, currency.secondCurrency.Value,
     currency.mainCurrency.Nominal, currency.secondCurrency.Nominal]);
 

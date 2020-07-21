@@ -3,9 +3,19 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import styles from './ExchangeInput.module.css';
 
+const NUMBER_REGEXP = /^[0-9]*[.]?[0-9]*$/;
+
 export function ExchangeInput({
   value, changeHandler, readOnly, name,
 }) {
+  
+  const changeInputValidation = (value) => {
+    if (NUMBER_REGEXP.test(value)) {
+      changeHandler(value);
+    }
+  }
+
+
   return (
     <>
       <TextField
@@ -17,8 +27,7 @@ export function ExchangeInput({
         }}
         fullWidth
         value={value}
-        onChange={(evt) => changeHandler(+evt.target.value)}
-        id="outlined-number"
+        onChange={(evt) => changeInputValidation(evt.target.value)}
         label={name}
         type="number"
         InputLabelProps={{
@@ -32,7 +41,7 @@ export function ExchangeInput({
 }
 
 ExchangeInput.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   changeHandler: PropTypes.func,
   readOnly: PropTypes.bool,
   name: PropTypes.string.isRequired,
